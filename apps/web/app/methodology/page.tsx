@@ -1,0 +1,9 @@
+export default function MethodologyPage() {
+  return <article className="prose"><header className="page-heading"><p className="eyebrow">How to read the evidence</p><h1>Understand the connection.</h1><p className="lead">Vantage connects published coursework evidence to employer requirements. These are different from personal proficiency or hiring eligibility.</p></header>
+    <h2>What contributes to alignment</h2><p>Only verified skills from compulsory courses in the selected academic calendar year contribute to default curriculum alignment. Electives, choice groups, concentrations, pending evidence, and merely mentioned course topics are excluded.</p>
+    <h2>An experimental, explainable heuristic</h2><p>Job requirements receive weights of 3 for required skills, 1.5 for preferred skills, and 1 for mentioned skills, multiplied by extraction confidence. The strongest course coverage receives 0.35 for introduced, 0.70 for practiced, or 1 for assessed. Weighted overlap is divided by total weighted job requirements.</p>
+    <p>These are design weights, not measured proficiency. When job requirements or verified curriculum evidence are absent, no percentage is displayed. Numerical scores remain experimental pending evaluation on real, reviewed program–job pairs.</p>
+    <h2>Know what the dataset represents</h2><p>Observation dates show when a collector saw a posting. They are not automatically publication dates. Salary is shown only in its reported currency and period. Limited source coverage cannot describe the whole Canadian job market.</p>
+    <h2>Development data</h2><p>The initial demo contains invented employers, postings, programs, and courses. Its evidence URLs are illustrative example.org links. Synthetic verification states exercise the software and do not assert anything about actual Laurier curricula. Live collection and curriculum verification are subsequent milestones.</p>
+  </article>;
+}

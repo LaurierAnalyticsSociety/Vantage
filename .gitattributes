@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Environment files may be tracked only after git-crypt is initialized.
+.env filter=git-crypt diff=git-crypt
+.env.* filter=git-crypt diff=git-crypt
+
+# Contributor templates and Git configuration stay readable.
+.env.example !filter !diff
+.env.*.example !filter !diff
+.gitattributes !filter !diff

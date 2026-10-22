@@ -1,0 +1,62 @@
+[
+  {
+    "source_key": "fixture-north",
+    "external_id": "analyst-intern",
+    "company_name": "Example North Analytics",
+    "title": "Data Analyst Intern",
+    "source_url": "https://example.org/north/jobs/analyst-intern",
+    "apply_url": "https://example.org/north/jobs/analyst-intern",
+    "location_raw": "Toronto, ON, Canada",
+    "description_text": "Synthetic demonstration posting. SQL is required. Python is required. Excel is preferred. This is not a real job opening.",
+    "posted_at": null,
+    "employment_type_raw": "internship",
+    "work_mode_raw": "hybrid",
+    "salary_raw": null,
+    "retrieved_at": "2026-10-21T12:00:00Z"
+  },
+  {
+    "source_key": "fixture-north",
+    "external_id": "reporting-analyst",
+    "company_name": "Example North Analytics",
+    "title": "Junior Reporting Analyst",
+    "source_url": "https://example.org/north/jobs/reporting-analyst",
+    "apply_url": "https://example.org/north/jobs/reporting-analyst",
+    "location_raw": "Waterloo, ON, Canada",
+    "description_text": "Synthetic demonstration posting. SQL is required. Excel is required. This is not a real job opening.",
+    "posted_at": null,
+    "employment_type_raw": "new_grad",
+    "work_mode_raw": "onsite",
+    "salary_raw": null,
+    "retrieved_at": "2026-10-21T12:00:00Z"
+  },
+  {
+    "source_key": "fixture-maple",
+    "external_id": "developer-intern",
+    "company_name": "Example Maple Technology",
+    "title": "Software Developer Co-op",
+    "source_url": "https://example.org/maple/jobs/developer-intern",
+    "apply_url": "https://example.org/maple/jobs/developer-intern",
+    "location_raw": "Ottawa, ON, Canada",
+    "description_text": "Synthetic demonstration posting. Python is required. Docker is preferred. JavaScript is mentioned. This is not a real job opening.",
+    "posted_at": null,
+    "employment_type_raw": "co_op",
+    "work_mode_raw": "remote",
+    "salary_raw": null,
+    "retrieved_at": "2026-10-21T12:00:00Z"
+  },
+  {
+    "source_key": "fixture-maple",
+    "external_id": "graduate-developer",
+    "company_name": "Example Maple Technology",
+    "title": "Graduate Application Developer",
+    "source_url": "https://example.org/maple/jobs/graduate-developer",
+    "apply_url": "https://example.org/maple/jobs/graduate-developer",
+    "location_raw": "Toronto, ON, Canada",
+    "description_text": "Synthetic demonstration posting. JavaScript is required. SQL is preferred. This is not a real job opening.",
+    "posted_at": null,
+    "employment_type_raw": "new_grad",
+    "work_mode_raw": "hybrid",
+    "salary_raw": null,
+    "retrieved_at": "2026-10-21T12:00:00Z"
+  }
+]

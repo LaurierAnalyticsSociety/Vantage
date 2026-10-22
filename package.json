@@ -1,0 +1,40 @@
+{
+  "name": "vantage",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=22.23.1 <23",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "setup": "python3 scripts/setup.py",
+    "dev": "concurrently --kill-others-on-fail -n api,web \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": ".venv/bin/python -m uvicorn services.api.app.main:app --reload --host 127.0.0.1 --port 8000",
+    "dev:web": "npm run dev --workspace @vantage/web",
+    "lint": ".venv/bin/ruff check services scripts tests && npm run lint --workspace @vantage/web",
+    "format:check": ".venv/bin/ruff format --check services scripts tests",
+    "typecheck": ".venv/bin/mypy services scripts tests && npm run typecheck --workspace @vantage/web",
+    "test": ".venv/bin/python -m pytest",
+    "test:database": ".venv/bin/python -m pytest -m database",
+    "test:e2e": "npm run test:e2e --workspace @vantage/web",
+    "build": "npm run build --workspace @vantage/web",
+    "db:migrate": ".venv/bin/python -m services.common.manage migrate",
+    "db:seed": ".venv/bin/python -m services.common.manage seed",
+    "db:roles": ".venv/bin/python -m services.common.manage roles",
+    "ingest:fixture": ".venv/bin/python -m services.ingestion.cli",
+    "secrets:init": "python3 scripts/git_crypt.py init",
+    "secrets:track": "python3 scripts/git_crypt.py track",
+    "secrets:status": "python3 scripts/git_crypt.py status",
+    "secrets:export": "python3 scripts/git_crypt.py export",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "@supabase/server": "^1.9.2"
+  }
+}

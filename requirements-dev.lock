@@ -1,0 +1,13 @@
+# Exact Python 3.13 dependencies. Review together with pyproject.toml.
+-r requirements.lock
+iniconfig==2.3.0
+mypy==1.18.1
+mypy-extensions==1.1.0
+packaging==26.3
+pathspec==1.1.1
+pluggy==1.6.0
+pygments==2.21.0
+pytest==9.1.1
+ruff==0.13.1
+setuptools==83.0.0
+wheel==0.47.0
