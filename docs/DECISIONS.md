@@ -35,3 +35,7 @@ At the user's request, configure AGWA/git-crypt for `.env` and `.env.*`, with pl
 ## 2026-10-21 — Contributor handoff boundary
 
 The current initialization task prepares the repository so contributors can begin work. It includes dependency locks, setup tooling, environment templates, documentation, and CI configuration. Starting application services, bootstrapping the hosted database, seeding data, and running collectors are separate opt-in activities. Hosted credentials are not a prerequisite for preparing a contributor checkout. Preserve the existing synthetic scaffold while keeping further product development outside this initialization task.
+
+## 2026-10-25 — Rule-based job-skill extraction
+
+Fixture ingestion now produces `job_skills` with the deterministic standard-library extractor `skill-rules-v1` (see `services/ingestion/extraction/README.md`). Within each source's ingestion transaction it replaces the complete annotation set for every processed synthetic job, so stale evidence is removed and extraction failures roll back the source's writes. A purely negated requirement is recorded as `mentioned`; "preferred but not required" stays `preferred`. Confidence is a heuristic weight for identification certainty — uniform for unambiguous matches, lower only for ambiguous tokens such as R and Go — not requirement strength or measured accuracy. The seed keeps its `fixture-v1` annotations so CI and seeded databases work without ingestion; removing them requires a follow-up CI/setup change. The schema, taxonomy, and matching formula are unchanged.
