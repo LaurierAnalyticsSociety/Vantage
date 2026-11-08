@@ -5,13 +5,44 @@ import psycopg
 from psycopg.rows import dict_row
 
 from services.common.settings import Settings, require_database_url
-from services.ingestion.adapters.fixture import FixtureAdapter
+from services.ingestion.adapters.fixture import Adapter, FixtureAdapter
+from services.ingestion.extraction import ExtractedSkill, Extractor, extract_skills, load_taxonomy
 from services.ingestion.processing.normalize import content_hash, normalize
 
 
-def ingest_fixture(connection: psycopg.Connection[dict[str, object]]) -> dict[str, int]:
+def replace_job_skills(
+    connection: psycopg.Connection[dict[str, object]], job_id: object, skills: list[ExtractedSkill]
+) -> None:
+    # The complete annotation set is replaced so removed requirements leave no stale evidence.
+    connection.execute("delete from vantage.job_skills where job_id = %s", (job_id,))
+    if not skills:
+        return
+    with connection.cursor() as cursor:
+        cursor.executemany(
+            """insert into vantage.job_skills
+            (job_id, skill_id, requirement_type, confidence, evidence_excerpt, extraction_version)
+            values (%s,%s,%s,%s,%s,%s)""",
+            [
+                (
+                    job_id,
+                    skill.skill_id,
+                    skill.requirement_type,
+                    skill.confidence,
+                    skill.evidence_excerpt,
+                    skill.extraction_version,
+                )
+                for skill in skills
+            ],
+        )
+
+
+def ingest_fixture(
+    connection: psycopg.Connection[dict[str, object]],
+    adapter: Adapter | None = None,
+    extractor: Extractor = extract_skills,
+) -> dict[str, int]:
     # Parse the complete fixture before writing: malformed files never cause closures.
-    records = [normalize(job) for job in FixtureAdapter().fetch()]
+    records = [normalize(job) for job in (adapter or FixtureAdapter()).fetch()]
     grouped = sorted({record.source_key for record in records})
     total_inserted = total_updated = 0
     for source_key in grouped:
@@ -24,6 +55,7 @@ def ingest_fixture(connection: psycopg.Connection[dict[str, object]]) -> dict[st
             ).fetchone()
             if source is None:
                 raise ValueError("Run the development seed before fixture ingestion.")
+            taxonomy = load_taxonomy(connection)
             run = connection.execute(
                 """insert into vantage.scrape_runs(source_id, adapter_version)
                 values (%s, 'fixture-v1') returning id""",
@@ -67,6 +99,10 @@ def ingest_fixture(connection: psycopg.Connection[dict[str, object]]) -> dict[st
                     """insert into vantage.job_observations(job_id, scrape_run_id, content_hash)
                     values (%s,%s,%s) on conflict (job_id, scrape_run_id) do nothing""",
                     (outcome["id"], run["id"], content_hash(record)),
+                )
+                # Inside the source transaction: an extraction failure rolls back all writes.
+                replace_job_skills(
+                    connection, outcome["id"], extractor(record.description_text, taxonomy)
                 )
             connection.execute(
                 """update vantage.scrape_runs set status='success', finished_at=now(),
