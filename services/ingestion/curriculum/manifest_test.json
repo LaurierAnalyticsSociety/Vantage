@@ -1,0 +1,130 @@
+{
+  "catalog_year": "2026/27",
+  "source": {
+    "source_url": "https://example.org/vantage/curriculum-cli-demo/calendar/2026-27",
+    "source_type": "academic_calendar",
+    "catalog_year": "2026/27",
+    "is_synthetic": true,
+    "title": "Synthetic curriculum example; not a Laurier source",
+    "last_checked_at": "2026-11-01T10:00:00Z"
+  },
+  "programs": [
+    {
+      "institution": "Synthetic demonstration institution",
+      "name": "Synthetic Analytics Program",
+      "slug": "curriculum-cli-demo",
+      "degree_type": "Demonstration degree",
+      "catalog_year": "2026/27",
+      "description": "Illustrative data only; this is not a real Laurier program."
+    }
+  ],
+  "courses": [
+    {
+      "code": "CURR101",
+      "title": "Synthetic Programming Foundations",
+      "catalog_year": "2026/27",
+      "description": "Illustrative course; not a real course."
+    },
+    {
+      "code": "CURR201",
+      "title": "Synthetic Data Options A",
+      "catalog_year": "2026/27",
+      "description": "Illustrative course; not a real course."
+    },
+    {
+      "code": "CURR301",
+      "title": "Synthetic Data Options B",
+      "catalog_year": "2026/27",
+      "description": "Illustrative course; not a real course."
+    },
+    {
+      "code": "CURR401",
+      "title": "Synthetic Concentration Course",
+      "catalog_year": "2026/27",
+      "description": "Illustrative course; not a real course."
+    },
+    {
+      "code": "CURR501",
+      "title": "Synthetic Elective",
+      "catalog_year": "2026/27",
+      "description": "Illustrative course; not a real course."
+    }
+  ],
+  "program_courses": [
+    {
+      "program_slug": "curriculum-cli-demo",
+      "course_code": "CURR101",
+      "requirement_type": "required",
+      "suggested_year": 1,
+      "notes": "Synthetic compulsory requirement for demonstrating the workflow."
+    },
+    {
+      "program_slug": "curriculum-cli-demo",
+      "course_code": "CURR201",
+      "requirement_type": "choice_group",
+      "choice_group": "synthetic-data-option",
+      "suggested_year": 2
+    },
+    {
+      "program_slug": "curriculum-cli-demo",
+      "course_code": "CURR301",
+      "requirement_type": "choice_group",
+      "choice_group": "synthetic-data-option",
+      "suggested_year": 2
+    },
+    {
+      "program_slug": "curriculum-cli-demo",
+      "course_code": "CURR401",
+      "requirement_type": "concentration",
+      "suggested_year": 3
+    },
+    {
+      "program_slug": "curriculum-cli-demo",
+      "course_code": "CURR501",
+      "requirement_type": "elective",
+      "suggested_year": 4
+    }
+  ],
+  "course_skills": [
+    {
+      "course_code": "CURR101",
+      "skill_slug": "python",
+      "coverage_level": "introduced",
+      "evidence_excerpt": "Synthetic example: students are introduced to Python.",
+      "evidence_url": "https://example.org/vantage/curriculum-cli-demo/courses/CURR101",
+      "extraction_method": "manual"
+    },
+    {
+      "course_code": "CURR201",
+      "skill_slug": "sql",
+      "coverage_level": "practiced",
+      "evidence_excerpt": "Synthetic example: students practice SQL.",
+      "evidence_url": "https://example.org/vantage/curriculum-cli-demo/courses/CURR201",
+      "extraction_method": "manual"
+    },
+    {
+      "course_code": "CURR301",
+      "skill_slug": "sql",
+      "coverage_level": "introduced",
+      "evidence_excerpt": "Synthetic example: students are introduced to SQL.",
+      "evidence_url": "https://example.org/vantage/curriculum-cli-demo/courses/CURR301",
+      "extraction_method": "manual"
+    },
+    {
+      "course_code": "CURR401",
+      "skill_slug": "python",
+      "coverage_level": "practiced",
+      "evidence_excerpt": "Synthetic example: students practice Python.",
+      "evidence_url": "https://example.org/vantage/curriculum-cli-demo/courses/CURR401",
+      "extraction_method": "manual"
+    },
+    {
+      "course_code": "CURR501",
+      "skill_slug": "sql",
+      "coverage_level": "assessed",
+      "evidence_excerpt": "Synthetic example: an elective assesses SQL.",
+      "evidence_url": "https://example.org/vantage/curriculum-cli-demo/courses/CURR501",
+      "extraction_method": "manual"
+    }
+  ]
+}
