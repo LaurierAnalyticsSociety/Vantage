@@ -9,19 +9,19 @@ from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator, mod
 CatalogYear = str
 RequirementType = Literal["required", "choice_group", "concentration", "elective"]
 CoverageLevel = Literal["mentioned", "introduced", "practiced", "assessed"]
-SourceType = Literal[
-    "academic_calendar", "course_description", "course_outline", "other_official"
-]
+SourceType = Literal["academic_calendar", "course_description", "course_outline", "other_official"]
 ExtractionMethod = Literal["manual", "rules", "model_assisted"]
 
-#------------------------------------------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------------
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-#CurriculumSource : Referred by Programs & Courses
+
+# CurriculumSource : Referred by Programs & Courses
 class CurriculumSource(StrictModel):
     source_url: HttpUrl
-    source_type: SourceType #refers source type
+    source_type: SourceType  # refers source type
     catalog_year: CatalogYear = Field(pattern=r"^\d{4}/\d{2}$")
     is_synthetic: bool
     title: str | None = None
@@ -34,7 +34,8 @@ class CurriculumSource(StrictModel):
             raise ValueError("last_checked_at must include a timezone")
         return value
 
-#Program : Referred by ProgramCourse
+
+# Program : Referred by ProgramCourse
 #          Refers CurriculumSource
 class Program(StrictModel):
     institution: str = Field(min_length=1)
@@ -54,7 +55,8 @@ class Program(StrictModel):
             raise ValueError("Text values must not be blank")
         return value
 
-#Course : Referred by ProgramCourse & CourseSkill
+
+# Course : Referred by ProgramCourse & CourseSkill
 #         Refers CurriculumSource
 class Course(StrictModel):
     code: str = Field(min_length=1)
@@ -70,7 +72,7 @@ class Course(StrictModel):
             raise ValueError("Course code must not be blank")
         return value
 
-    @field_validator("title","description")
+    @field_validator("title", "description")
     @classmethod
     def strip_optional_text(cls, value: str | None) -> str | None:
         if value is None:
@@ -80,7 +82,8 @@ class Course(StrictModel):
             raise ValueError("Text values must not be blank")
         return value
 
-#ProgramCourse : Refers Program and Courses
+
+# ProgramCourse : Refers Program and Courses
 class ProgramCourse(StrictModel):
     program_slug: str = Field(pattern=r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
     course_code: str = Field(min_length=1)
@@ -115,7 +118,8 @@ class ProgramCourse(StrictModel):
             raise ValueError("choice_group is only valid for choice_group relationships")
         return self
 
-#CourseSkill : Refers to Courses & Skills (job ingestion url)
+
+# CourseSkill : Refers to Courses & Skills (job ingestion url)
 class CourseSkill(StrictModel):
     course_code: str = Field(min_length=1)
     skill_slug: str = Field(pattern=r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -155,14 +159,10 @@ class CurriculumManifest(StrictModel):
             raise ValueError("Source catalog_year must match manifest catalog_year")
         for program in self.programs:
             if program.catalog_year != self.catalog_year:
-                raise ValueError(
-                    f"Program {program.slug!r} catalog_year must match the manifest"
-                )
+                raise ValueError(f"Program {program.slug!r} catalog_year must match the manifest")
         for course in self.courses:
             if course.catalog_year != self.catalog_year:
-                raise ValueError(
-                    f"Course {course.code!r} catalog_year must match the manifest"
-                )
+                raise ValueError(f"Course {course.code!r} catalog_year must match the manifest")
         return self
 
 

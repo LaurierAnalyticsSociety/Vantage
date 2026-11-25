@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     app_env: Literal["development", "test", "production"] = "development"
     log_level: str = "INFO"
 
-    # Defines separate secret-wrapped URLs for the API reader, 
+    # Defines separate secret-wrapped URLs for the API reader,
     # ingestion worker, and migration/admin role.
     database_url: SecretStr = SecretStr("")
     ingestion_database_url: SecretStr = SecretStr("")
