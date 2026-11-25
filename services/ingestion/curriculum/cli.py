@@ -9,8 +9,8 @@ from typing import Sequence
 from uuid import UUID
 
 import psycopg  #import for postgre-connection
-from pydantic import ValidationError
 from psycopg.rows import dict_row
+from pydantic import ValidationError
 
 from services.common.settings import Settings, require_database_url
 from services.ingestion.curriculum.manifest import (
@@ -21,6 +21,7 @@ from services.ingestion.curriculum.manifest import (
     Program,
     validate_manifest,
 )
+
 
 #----------------------------------------------------------------------------
 @dataclass(frozen=True)
