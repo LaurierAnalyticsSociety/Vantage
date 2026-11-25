@@ -12,6 +12,7 @@ import psycopg  # import for postgre-connection
 from psycopg.rows import dict_row
 from pydantic import ValidationError
 
+from services.common.database import DatabaseConnection
 from services.common.settings import Settings, require_database_url
 from services.ingestion.curriculum.manifest import (
     Course,
@@ -60,7 +61,7 @@ def load_manifest(path: Path) -> CurriculumManifest:
 
 
 # Reads the first matching row from source
-def _source_row(connection: psycopg.Connection, source: CurriculumSource) -> dict | None:
+def _source_row(connection: DatabaseConnection, source: CurriculumSource) -> dict | None:
     return connection.execute(
         """select id, source_type, catalog_year, title, is_synthetic, last_checked_at
         from vantage.curriculum_sources where source_url = %s""",
@@ -88,7 +89,7 @@ def _validate_source(source: CurriculumSource, row: dict) -> None:
 # checks for mismatched program slug
 # checks whether program matches source_id
 def _existing_program(
-    connection: psycopg.Connection, program: Program, source_id: UUID | None
+    connection: DatabaseConnection, program: Program, source_id: UUID | None
 ) -> dict | None:
     rows = connection.execute(
         """select id, source_id, slug, institution, name, degree_type, description
@@ -118,7 +119,7 @@ def _existing_program(
 # checks for mismatched copurse code
 # checks whether course matches source_id
 def _existing_course(
-    connection: psycopg.Connection, course: Course, source_id: UUID | None
+    connection: DatabaseConnection, course: Course, source_id: UUID | None
 ) -> dict | None:
     rows = connection.execute(
         """select id, source_id, code, title, description from vantage.courses
@@ -144,7 +145,7 @@ def _existing_course(
 
 
 # -----------------------------------------------------------------------
-def build_import_plan(connection: psycopg.Connection, manifest: CurriculumManifest) -> ImportPlan:
+def build_import_plan(connection: DatabaseConnection, manifest: CurriculumManifest) -> ImportPlan:
     validate_manifest(manifest)
     source_row = _source_row(connection, manifest.source)
     if source_row is not None:
@@ -268,7 +269,7 @@ def _evidence_matches(existing: dict, evidence: CourseSkill) -> bool:
 
 
 # insert source
-def _upsert_source(connection: psycopg.Connection, source: CurriculumSource) -> UUID:
+def _upsert_source(connection: DatabaseConnection, source: CurriculumSource) -> UUID:
     inserted = connection.execute(
         """insert into vantage.curriculum_sources
         (source_url, source_type, catalog_year, title, is_synthetic, last_checked_at)
@@ -310,7 +311,7 @@ def _upsert_source(connection: psycopg.Connection, source: CurriculumSource) -> 
 
 
 # insert program
-def _upsert_program(connection: psycopg.Connection, program: Program, source_id: UUID) -> UUID:
+def _upsert_program(connection: DatabaseConnection, program: Program, source_id: UUID) -> UUID:
     row = connection.execute(
         """insert into vantage.programs
         (institution, name, slug, degree_type, catalog_year, source_id, description)
@@ -340,7 +341,7 @@ def _upsert_program(connection: psycopg.Connection, program: Program, source_id:
 
 
 # inserts course
-def _upsert_course(connection: psycopg.Connection, course: Course, source_id: UUID) -> UUID:
+def _upsert_course(connection: DatabaseConnection, course: Course, source_id: UUID) -> UUID:
     row = connection.execute(
         """insert into vantage.courses
         (code, title, catalog_year, description, source_id)
@@ -361,7 +362,7 @@ def _upsert_course(connection: psycopg.Connection, course: Course, source_id: UU
 
 # -------------------------------------------------------------------
 # create table records
-def import_manifest(connection: psycopg.Connection, manifest: CurriculumManifest) -> ImportPlan:
+def import_manifest(connection: DatabaseConnection, manifest: CurriculumManifest) -> ImportPlan:
     with connection.transaction():
         plan = build_import_plan(connection, manifest)
         source_id = _upsert_source(connection, manifest.source)
@@ -430,7 +431,7 @@ def import_manifest(connection: psycopg.Connection, manifest: CurriculumManifest
 
 
 def review_evidence(
-    connection: psycopg.Connection,
+    connection: DatabaseConnection,
     *,
     course_code: str,
     catalog_year: str,
@@ -472,7 +473,7 @@ def review_evidence(
 
 
 # set migration db url
-def _admin_connection() -> psycopg.Connection:
+def _admin_connection() -> DatabaseConnection:
     settings = Settings()
     url = require_database_url(settings.migration_database_url)
     return psycopg.connect(url, row_factory=dict_row, connect_timeout=10)

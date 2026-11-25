@@ -13,7 +13,6 @@ SourceType = Literal["academic_calendar", "course_description", "course_outline"
 ExtractionMethod = Literal["manual", "rules", "model_assisted"]
 
 
-
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
