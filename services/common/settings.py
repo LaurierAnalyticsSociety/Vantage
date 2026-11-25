@@ -19,9 +19,13 @@ class Settings(BaseSettings):
 
     app_env: Literal["development", "test", "production"] = "development"
     log_level: str = "INFO"
+
+    # Defines separate secret-wrapped URLs for the API reader, 
+    # ingestion worker, and migration/admin role.
     database_url: SecretStr = SecretStr("")
     ingestion_database_url: SecretStr = SecretStr("")
     migration_database_url: SecretStr = SecretStr("")
+
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
     scraper_user_agent: str = "Vantage-development"
     max_concurrent_requests: int = Field(default=3, ge=1, le=10)

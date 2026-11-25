@@ -5,7 +5,6 @@ from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator, model_validator
 
-
 # Type Checking
 CatalogYear = str
 RequirementType = Literal["required", "choice_group", "concentration", "elective"]

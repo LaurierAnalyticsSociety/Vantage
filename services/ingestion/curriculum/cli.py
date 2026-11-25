@@ -3,9 +3,9 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections.abc import Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Sequence
 from uuid import UUID
 
 import psycopg  #import for postgre-connection
@@ -419,7 +419,8 @@ def import_manifest(
                 where course_skills.coverage_level is distinct from excluded.coverage_level
                    or course_skills.evidence_excerpt is distinct from excluded.evidence_excerpt
                    or course_skills.evidence_url is distinct from excluded.evidence_url
-                   or course_skills.extraction_method is distinct from excluded.extraction_method""",
+                   or course_skills.extraction_method is distinct from 
+                   excluded.extraction_method""",
                 (
                     course_ids[evidence.course_code],
                     skill_ids[evidence.skill_slug],
