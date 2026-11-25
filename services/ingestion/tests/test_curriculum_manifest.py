@@ -8,9 +8,7 @@ from pydantic import ValidationError
 from services.ingestion.curriculum.cli import load_manifest
 from services.ingestion.curriculum.manifest import CurriculumManifest, validate_manifest
 
-MANIFEST_PATH = (
-    Path(__file__).parents[1] / "curriculum" / "manifest_test.json"
-)
+MANIFEST_PATH = Path(__file__).parents[1] / "curriculum" / "manifest_test.json"
 
 
 def manifest_payload() -> dict[str, Any]:
@@ -30,8 +28,9 @@ def test_synthetic_manifest_is_valid_and_has_only_explicit_requirements() -> Non
     assert all(item.evidence_excerpt for item in manifest.course_skills)
     assert all(item.evidence_url for item in manifest.course_skills)
 
-#--------------------------------------------------------------------------
-#tests
+
+# --------------------------------------------------------------------------
+# tests
 def test_models_forbid_unknown_fields() -> None:
     payload = manifest_payload()
     payload["unexpected"] = "not accepted"
@@ -39,7 +38,8 @@ def test_models_forbid_unknown_fields() -> None:
     with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
         CurriculumManifest.model_validate(payload)
 
-#injecting duplicate courses
+
+# injecting duplicate courses
 @pytest.mark.parametrize(
     ("mutate", "message"),
     [
@@ -52,9 +52,7 @@ def test_models_forbid_unknown_fields() -> None:
             "Duplicate program slug",
         ),
         (
-            lambda payload: payload["program_courses"].append(
-                payload["program_courses"][0]
-            ),
+            lambda payload: payload["program_courses"].append(payload["program_courses"][0]),
             "Duplicate program-course requirement",
         ),
         (
@@ -63,9 +61,7 @@ def test_models_forbid_unknown_fields() -> None:
         ),
     ],
 )
-def test_duplicate_identities_and_relationships_are_rejected(
-    mutate: Any, message: str
-) -> None:
+def test_duplicate_identities_and_relationships_are_rejected(mutate: Any, message: str) -> None:
     payload = manifest_payload()
     mutate(payload)
     manifest = CurriculumManifest.model_validate(payload)
