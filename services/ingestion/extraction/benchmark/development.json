@@ -1,0 +1,832 @@
+{
+  "format": "vantage-skill-benchmark",
+  "format_version": 1,
+  "corpus_version": "bench-1",
+  "split": "development",
+  "taxonomy_version": "bench-tax-1",
+  "provenance": {
+    "synthetic": true,
+    "method": "hand-authored synthetic descriptions",
+    "authored": "2026-11-26",
+    "guide": "ANNOTATION.md"
+  },
+  "cases": [
+    {
+      "id": "dev-001",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:heading-without-colon",
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "Requirements\n- Python\n- SQL\n\nNice to have\n- Docker",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-002",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:heading-without-colon",
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "## Required skills\n- Java\n- Git\n## Preferred skills\n- Kubernetes",
+      "expected": [
+        {
+          "skill": "git",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "java",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "kubernetes",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-003",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:heading-without-colon",
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "**Preferred qualifications**\n- Tableau\n- Power BI",
+      "expected": [
+        {
+          "skill": "power-bi",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "tableau",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-004",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:heading-without-colon",
+        "counterexample",
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "Benefits\n- Free Docker training\n- Hybrid schedule",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "mentioned"
+        }
+      ],
+      "note": "A heading that states no requirement leaves its items mentioned."
+    },
+    {
+      "id": "dev-005",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:heading-without-colon",
+        "counterexample",
+        "headings-bullets",
+        "multi-line",
+        "multi-sentence"
+      ],
+      "description": "Python is required.\n- Weekly Excel office hours\n- Tableau licences for every analyst",
+      "expected": [
+        {
+          "skill": "excel",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "tableau",
+          "requirement_type": "mentioned"
+        }
+      ],
+      "note": "The first line is a sentence naming a skill, not a heading; the bullets are perks."
+    },
+    {
+      "id": "dev-006",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "negation"
+      ],
+      "description": "We don't sponsor visas, and SQL is required.",
+      "expected": [
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-007",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "negation"
+      ],
+      "description": "This is not a remote position and Docker is required.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-008",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "negation"
+      ],
+      "description": "No relocation is offered, so strong Python skills are required.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-009",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "negation"
+      ],
+      "description": "Applicants without a degree are welcome, and Java is required.",
+      "expected": [
+        {
+          "skill": "java",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-010",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "counterexample",
+        "negation"
+      ],
+      "description": "No prior Python experience is required.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-011",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:negation-scope",
+        "counterexample",
+        "negation"
+      ],
+      "description": "Docker and Kubernetes are not required, and Git is required.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "git",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "kubernetes",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-012",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "mixed-cues"
+      ],
+      "description": "Python is required and Tableau or Power BI is a plus.",
+      "expected": [
+        {
+          "skill": "power-bi",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "tableau",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-013",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "mixed-cues"
+      ],
+      "description": "Must have SQL, with Docker and Kubernetes preferred.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "kubernetes",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-014",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "mixed-cues"
+      ],
+      "description": "Java is essential and Git or Docker would be an asset.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "git",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "java",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-015",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "mixed-cues"
+      ],
+      "description": "TypeScript is mandatory, while AWS and Docker are desirable.",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "docker",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "typescript",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-016",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "counterexample",
+        "mixed-cues"
+      ],
+      "description": "SQL, Python, and Docker are required.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-017",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "candidate:coordinated-cue",
+        "counterexample",
+        "mixed-cues"
+      ],
+      "description": "Python required, Docker preferred, Git a plus.",
+      "expected": [
+        {
+          "skill": "docker",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "git",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-018",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "candidate:ambiguous-after-label"
+      ],
+      "description": "Languages: Go, Java",
+      "expected": [
+        {
+          "skill": "go",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "java",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-019",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "candidate:ambiguous-after-label"
+      ],
+      "description": "Tech stack: C, C++ and Python",
+      "expected": [
+        {
+          "skill": "c",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "cpp",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-020",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "candidate:ambiguous-after-label"
+      ],
+      "description": "Nice to have: R, SQL",
+      "expected": [
+        {
+          "skill": "r",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-021",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "boundaries"
+      ],
+      "description": "Experience with PostgreSQL and SQL is required.",
+      "expected": [
+        {
+          "skill": "postgresql",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ],
+      "note": "PostgreSQL does not imply SQL; both are named."
+    },
+    {
+      "id": "dev-022",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "boundaries",
+        "skill-free"
+      ],
+      "description": "Help spark new ideas with our Pythonic style guide and gitlab-style reviews.",
+      "expected": [],
+      "note": "'spark' is a verb here, not Apache Spark."
+    },
+    {
+      "id": "dev-023",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "technical-identifiers"
+      ],
+      "description": "C# and .NET experience is required; C++ is a bonus.",
+      "expected": [
+        {
+          "skill": "cpp",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "csharp",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "dotnet",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-024",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "skill-free",
+        "technical-identifiers"
+      ],
+      "description": "Upload resumes as .docx files to careers.example.org/js-portal.",
+      "expected": [],
+      "note": "'js' is part of a URL path, not a JavaScript mention."
+    },
+    {
+      "id": "dev-025",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens"
+      ],
+      "description": "Fluency in R or Python is required for statistical modelling.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "r",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-026",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "skill-free"
+      ],
+      "description": "Candidates with a C average or better, and a go-getter attitude, are welcome.",
+      "expected": []
+    },
+    {
+      "id": "dev-027",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "negation"
+      ],
+      "description": "Python is not mandatory for this role.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-028",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "multi-sentence",
+        "negation"
+      ],
+      "description": "Excel is required. Tableau isn't required, though it helps.",
+      "expected": [
+        {
+          "skill": "excel",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "tableau",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-029",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "headings-bullets",
+        "multi-line",
+        "multi-sentence"
+      ],
+      "description": "Minimum qualifications:\n1. Java\n2. Git\nPreferred:\n* AWS",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "git",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "java",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-030",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "Perks:\n- Free Docker and AWS training\nAbout us:\n- We build Python tools",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "docker",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "python",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-031",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "mixed-cues"
+      ],
+      "description": "SQL is required, Excel is preferred, and our team also uses Tableau.",
+      "expected": [
+        {
+          "skill": "excel",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "tableau",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-032",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "mixed-cues"
+      ],
+      "description": "A strong asset would be AWS experience, and Docker is essential.",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "docker",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-033",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "multi-sentence",
+        "negation",
+        "repeated-mentions"
+      ],
+      "description": "Python is preferred. Our tooling is Python 3 based. Python 3 is not required.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-034",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "multi-sentence",
+        "repeated-mentions"
+      ],
+      "description": "Excel, Excel, and more Excel. Microsoft Excel is mentioned everywhere here.",
+      "expected": [
+        {
+          "skill": "excel",
+          "requirement_type": "mentioned"
+        }
+      ]
+    },
+    {
+      "id": "dev-035",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "punctuation"
+      ],
+      "description": "(Python/SQL) required.",
+      "expected": [
+        {
+          "skill": "python",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "sql",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-036",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "punctuation"
+      ],
+      "description": "Must-have: \"TypeScript\"; nice-to-have: 'Go' (Golang).",
+      "expected": [
+        {
+          "skill": "go",
+          "requirement_type": "preferred"
+        },
+        {
+          "skill": "typescript",
+          "requirement_type": "required"
+        }
+      ]
+    },
+    {
+      "id": "dev-037",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "empty-skill-free"
+      ],
+      "description": "",
+      "expected": []
+    },
+    {
+      "id": "dev-038",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "empty-skill-free",
+        "headings-bullets",
+        "multi-line"
+      ],
+      "description": "Requirements:\n- Strong communication\n- Valid driver's licence",
+      "expected": []
+    },
+    {
+      "id": "dev-039",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "ambiguous-tokens",
+        "mixed-cues",
+        "multi-line",
+        "multi-sentence",
+        "postings"
+      ],
+      "description": "Backend Developer (synthetic)\nWe build services in Go. Docker is required, and Kubernetes would be a plus.\nWe don't offer relocation.\n- Benefits include AWS certification support.",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "docker",
+          "requirement_type": "required"
+        },
+        {
+          "skill": "go",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "kubernetes",
+          "requirement_type": "preferred"
+        }
+      ]
+    },
+    {
+      "id": "dev-040",
+      "synthetic": true,
+      "provenance": "hand-authored",
+      "tags": [
+        "headings-bullets",
+        "multi-line",
+        "multi-sentence",
+        "negation",
+        "postings"
+      ],
+      "description": "Platform Engineer (synthetic)\nYou'll work across AWS and Kubernetes every day.\nNot required: C++ or Java experience.\nPreferred: TypeScript.",
+      "expected": [
+        {
+          "skill": "aws",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "cpp",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "java",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "kubernetes",
+          "requirement_type": "mentioned"
+        },
+        {
+          "skill": "typescript",
+          "requirement_type": "preferred"
+        }
+      ]
+    }
+  ]
+}

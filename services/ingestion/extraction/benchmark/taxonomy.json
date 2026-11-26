@@ -1,0 +1,30 @@
+{
+  "format": "vantage-skill-taxonomy",
+  "format_version": 1,
+  "taxonomy_version": "bench-tax-1",
+  "synthetic": true,
+  "description": "Isolated benchmark taxonomy. Stable keys only; unrelated to production skill UUIDs or the seed taxonomy.",
+  "skills": [
+    {"key": "aws", "name": "AWS", "aliases": ["Amazon Web Services"]},
+    {"key": "c", "name": "C", "aliases": []},
+    {"key": "cpp", "name": "C++", "aliases": []},
+    {"key": "csharp", "name": "C#", "aliases": []},
+    {"key": "docker", "name": "Docker", "aliases": []},
+    {"key": "dotnet", "name": ".NET", "aliases": []},
+    {"key": "excel", "name": "Excel", "aliases": ["Microsoft Excel", "MS Excel"]},
+    {"key": "git", "name": "Git", "aliases": []},
+    {"key": "go", "name": "Go", "aliases": ["Golang"]},
+    {"key": "java", "name": "Java", "aliases": []},
+    {"key": "javascript", "name": "JavaScript", "aliases": ["JS"]},
+    {"key": "kubernetes", "name": "Kubernetes", "aliases": ["K8s"]},
+    {"key": "nodejs", "name": "Node.js", "aliases": []},
+    {"key": "postgresql", "name": "PostgreSQL", "aliases": ["Postgres"]},
+    {"key": "power-bi", "name": "Power BI", "aliases": ["Microsoft Power BI"]},
+    {"key": "python", "name": "Python", "aliases": ["Python 3"]},
+    {"key": "r", "name": "R", "aliases": []},
+    {"key": "spark", "name": "Apache Spark", "aliases": ["Spark"]},
+    {"key": "sql", "name": "SQL", "aliases": []},
+    {"key": "tableau", "name": "Tableau", "aliases": []},
+    {"key": "typescript", "name": "TypeScript", "aliases": []}
+  ]
+}
