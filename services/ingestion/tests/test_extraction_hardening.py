@@ -162,3 +162,89 @@ def test_unrelated_earlier_negation_does_not_cancel_requirement(
 )
 def test_true_negated_requirements_stay_mentioned(text: str, expected: dict[str, str]) -> None:
     assert found(text) == expected
+
+
+# ---- C. Cue assignment in coordinated skill groups ----
+
+
+def test_frozen_development_coordination_cases_pass() -> None:
+    statuses = development_status("candidate:coordinated-cue")
+    assert set(statuses) == {f"dev-{n:03d}" for n in range(12, 18)}
+    assert set(statuses.values()) == {"match"}
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (
+            "Python is required and Tableau or Power BI is a plus.",
+            {"Python": "required", "Tableau": "preferred", "Power BI": "preferred"},
+        ),
+        (
+            "Must have SQL, with Docker and Kubernetes preferred.",
+            {"SQL": "required", "Docker": "preferred", "Kubernetes": "preferred"},
+        ),
+        (
+            "Java is essential and Git or Docker would be an asset.",
+            {"Java": "required", "Git": "preferred", "Docker": "preferred"},
+        ),
+        (
+            "TypeScript is mandatory, while AWS and Docker are desirable.",
+            {"TypeScript": "required", "AWS": "preferred", "Docker": "preferred"},
+        ),
+        # The leak also ran backwards from a later cue and into cue-free groups.
+        (
+            "SQL is required, Excel is preferred, and our team also uses Tableau.",
+            {"SQL": "required", "Excel": "preferred", "Tableau": "mentioned"},
+        ),
+        ("Docker is a plus and Java is mandatory.", {"Docker": "preferred", "Java": "required"}),
+        (
+            "Java is required, with Git preferred and Docker a bonus.",
+            {"Java": "required", "Git": "preferred", "Docker": "preferred"},
+        ),
+    ],
+)
+def test_cues_do_not_leak_between_coordinated_groups(text: str, expected: dict[str, str]) -> None:
+    assert found(text) == expected
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        # A cue shared by one coordinated list applies to every listed skill.
+        (
+            "SQL, Python, and Docker are required.",
+            {"SQL": "required", "Python": "required", "Docker": "required"},
+        ),
+        ("Python or R is required.", {"Python": "required", "R": "required"}),
+        (
+            "Strong SQL and Excel skills are essential, while Tableau is a bonus.",
+            {"SQL": "required", "Excel": "required", "Tableau": "preferred"},
+        ),
+        # A cue in a segment without its own skills still governs the list it introduces.
+        (
+            "Must have experience with dashboards, SQL, and Excel.",
+            {"SQL": "required", "Excel": "required"},
+        ),
+        (
+            "Required skills include, for example, Python and SQL.",
+            {"Python": "required", "SQL": "required"},
+        ),
+        # Mixed categories within one sentence stay distinct.
+        (
+            "Python required, Docker preferred, Git a plus.",
+            {"Python": "required", "Docker": "preferred", "Git": "preferred"},
+        ),
+        ("You will need Python, and ideally AWS.", {"Python": "required", "AWS": "preferred"}),
+        ("SQL is required and Docker is preferred.", {"SQL": "required", "Docker": "preferred"}),
+    ],
+)
+def test_shared_and_mixed_cues_are_preserved(text: str, expected: dict[str, str]) -> None:
+    assert found(text) == expected
+
+
+def test_heading_still_applies_when_item_segments_have_no_cue() -> None:
+    assert found("Requirements:\n- Python, and some Docker") == {
+        "Python": "required",
+        "Docker": "required",
+    }

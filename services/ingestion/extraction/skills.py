@@ -5,6 +5,7 @@ Confidence is a design weight for identification certainty, not measured accurac
 """
 
 import re
+from bisect import bisect_right
 from collections.abc import Callable, Iterable, Iterator
 from dataclasses import dataclass
 from itertools import pairwise
@@ -152,9 +153,10 @@ def extract_skills(text: str | None, taxonomy: Taxonomy) -> list[ExtractedSkill]
     for sentence, inherited in _sentences(text, taxonomy):
         for clause_start, clause in _clauses(sentence):
             mentions = _accepted(_candidates(clause, taxonomy), clause, taxonomy)
-            cues = _cues(clause, _segment_breaks(clause, mentions))
+            breaks = _segment_breaks(clause, mentions)
+            cues = _cues(clause, breaks)
             for candidate in mentions:
-                requirement = _classify(candidate, cues, inherited)
+                requirement = _classify(candidate, cues, inherited, breaks, mentions)
                 ambiguous = taxonomy.is_ambiguous(candidate.key)
                 confidence = AMBIGUOUS_CONFIDENCE if ambiguous else MATCH_CONFIDENCE
                 skill = ExtractedSkill(
@@ -353,16 +355,30 @@ def _listed_with(item: _Candidate, accepted: list[_Candidate], clause: str) -> b
 
 
 def _classify(
-    candidate: _Candidate, cues: list[_Cue], inherited: RequirementType | None
+    candidate: _Candidate,
+    cues: list[_Cue],
+    inherited: RequirementType | None,
+    breaks: list[int] | None = None,
+    mentions: list[_Candidate] | None = None,
 ) -> RequirementType:
-    if cues:
-        # The nearest cue in the clause applies; ties resolve to the weaker category.
+    def segment(offset: int) -> int:
+        return bisect_right(breaks or [], offset)
+
+    # A skill takes a cue from its own segment. Failing that, only a cue from a segment that
+    # names no skill of its own can apply ("Must have experience with dashboards, SQL, and
+    # Excel"); a cue already governing another skill group never leaks into this one.
+    eligible = [cue for cue in cues if segment(cue.start) == segment(candidate.start)]
+    if not eligible:
+        occupied = {segment(item.start) for item in mentions or [candidate]}
+        eligible = [cue for cue in cues if segment(cue.start) not in occupied]
+    if eligible:
+        # The nearest eligible cue applies; ties resolve to the weaker category.
         def distance(cue: _Cue) -> tuple[int, int]:
             gap = max(cue.start - candidate.end, candidate.start - cue.end, 0)
             weight = 0 if cue.negated else STRENGTH[cue.requirement]
             return gap, weight
 
-        cue = min(cues, key=distance)
+        cue = min(eligible, key=distance)
         return "mentioned" if cue.negated else cue.requirement
     return inherited or "mentioned"
 
