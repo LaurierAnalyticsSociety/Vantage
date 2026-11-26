@@ -13,7 +13,7 @@ from uuid import UUID
 if TYPE_CHECKING:
     import psycopg
 
-EXTRACTION_VERSION = "skill-rules-v1"
+EXTRACTION_VERSION = "skill-rules-v2"
 EXCERPT_LIMIT = 240
 
 RequirementType = Literal["required", "preferred", "mentioned"]

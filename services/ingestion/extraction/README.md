@@ -1,6 +1,6 @@
 # Skill extraction
 
-`skills.py` is a typed, deterministic, rule-based extractor (`skill-rules-v1`). It resolves job-description text to canonical `vantage.skills` IDs using the skill names and `vantage.skill_aliases`, and returns one annotation per skill with a requirement type, bounded heuristic confidence, evidence excerpt, and extraction version. It uses only the Python standard library; spaCy and model dependencies remain deferred until evaluated against labeled permitted descriptions.
+`skills.py` is a typed, deterministic, rule-based extractor (`skill-rules-v2`; see [version history](#version-history)). It resolves job-description text to canonical `vantage.skills` IDs using the skill names and `vantage.skill_aliases`, and returns one annotation per skill with a requirement type, bounded heuristic confidence, evidence excerpt, and extraction version. It uses only the Python standard library; spaCy and model dependencies remain deferred until evaluated against labeled permitted descriptions.
 
 ## Usage
 
@@ -13,7 +13,7 @@ taxonomy = load_taxonomy(connection)  # or Taxonomy([SkillAlias(skill_id, "SQL",
 skills = extract_skills(description_text, taxonomy)
 ```
 
-The SQL seed still inserts `fixture-v1` annotations so a seeded database works before ingestion; fixture ingestion replaces them with `skill-rules-v1` rows.
+The SQL seed still inserts `fixture-v1` annotations so a seeded database works before ingestion; fixture ingestion replaces them with `skill-rules-v2` rows.
 
 ## Rules
 
@@ -44,6 +44,11 @@ Repeated mentions of one skill keep the strongest category (required > preferred
 4. At the start of a sentence or clause, only a following qualifier counts, so "Go to our careers page" is rejected.
 
 Unambiguous aliases such as `Golang` match normally. These rules deliberately miss some genuine mentions (for example "R is required." standing alone) rather than invent requirements.
+
+## Version history
+
+- `skill-rules-v1` — initial rules (PR #4). Baseline benchmark reports: `benchmark/reports/baseline/`.
+- `skill-rules-v2` — hardening driven by demonstrated development-split failures; see the rule changes below and `benchmark/ERROR_ANALYSIS.md`. Matching, ambiguity policy, confidence, evidence excerpts, and deduplication are unchanged.
 
 ## Offline evaluation
 
