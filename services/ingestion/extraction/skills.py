@@ -7,6 +7,7 @@ Confidence is a design weight for identification certainty, not measured accurac
 import re
 from collections.abc import Callable, Iterable, Iterator
 from dataclasses import dataclass
+from itertools import pairwise
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -45,6 +46,7 @@ NEGATION = re.compile(
     r"\b(?:not|no|never|without|isn't|aren't|don't|doesn't|won't|cannot)\b", re.IGNORECASE
 )
 SENTENCE_BREAK = re.compile(r"(?<=[.!?])\s+")
+SEGMENT_BREAK = re.compile(r",|\s(?:and|so|yet|while)(?=\s)", re.IGNORECASE)
 CLAUSE_BREAK = re.compile(r";|\s(?:but|however|although|though|whereas)\b", re.IGNORECASE)
 BULLET = re.compile(r"^(?:[-*•·▪]|\d{1,2}[.)])\s+")
 HEADING = re.compile(r"^([^:]{1,60}):\s*(.*)$")
@@ -149,8 +151,9 @@ def extract_skills(text: str | None, taxonomy: Taxonomy) -> list[ExtractedSkill]
     position = 0
     for sentence, inherited in _sentences(text, taxonomy):
         for clause_start, clause in _clauses(sentence):
-            cues = _cues(clause)
-            for candidate in _accepted(_candidates(clause, taxonomy), clause, taxonomy):
+            mentions = _accepted(_candidates(clause, taxonomy), clause, taxonomy)
+            cues = _cues(clause, _segment_breaks(clause, mentions))
+            for candidate in mentions:
                 requirement = _classify(candidate, cues, inherited)
                 ambiguous = taxonomy.is_ambiguous(candidate.key)
                 confidence = AMBIGUOUS_CONFIDENCE if ambiguous else MATCH_CONFIDENCE
@@ -253,14 +256,35 @@ def _clauses(sentence: str) -> Iterator[tuple[int, str]]:
     yield start, sentence[start:]
 
 
-def _cues(clause: str) -> list[_Cue]:
+def _segment_breaks(clause: str, mentions: list[_Candidate]) -> list[int]:
+    """End offsets of segment breaks within a clause, in order.
+
+    Commas and the conjunctions and/so/yet/while separate segments ("We don't sponsor visas,
+    and SQL is required"), except where they join a coordinated skill list ("No Python and
+    SQL experience is required", "Python, R, or SQL"). ``mentions`` must be sorted by start.
+    """
+    lists = [
+        (left.end, right.start)
+        for left, right in pairwise(mentions)
+        if LIST_SEPARATOR.match(clause[left.end : right.start])
+    ]
+    return [
+        match.end()
+        for match in SEGMENT_BREAK.finditer(clause)
+        if not any(start <= match.start() and match.end() <= end for start, end in lists)
+    ]
+
+
+def _cues(clause: str, breaks: list[int] | None = None) -> list[_Cue]:
     cues = [
         _Cue(match.start(), match.end(), "preferred") for match in PREFERRED_CUE.finditer(clause)
     ]
     previous_end = 0
     for match in REQUIRED_CUE.finditer(clause):
-        # A negation between the previous cue and this one cancels the requirement.
-        negated = NEGATION.search(clause, previous_end, match.start()) is not None
+        # A negation cancels a requirement only within the cue's own segment and after any
+        # previous required cue; a negation in an earlier, unrelated segment does not.
+        start = max([previous_end, *(end for end in breaks or () if end <= match.start())])
+        negated = NEGATION.search(clause, start, match.start()) is not None
         cues.append(_Cue(match.start(), match.end(), "required", negated))
         previous_end = match.end()
     return sorted(cues, key=lambda cue: cue.start)

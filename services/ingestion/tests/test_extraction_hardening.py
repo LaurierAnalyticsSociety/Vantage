@@ -107,3 +107,58 @@ def test_colonless_heading_evidence_is_the_bullet_text() -> None:
     assert [(skill.requirement_type, skill.evidence_excerpt) for skill in skills] == [
         ("required", "Java")
     ]
+
+
+# ---- B. Negation scope across clauses ----
+
+
+def test_frozen_development_negation_cases_pass() -> None:
+    statuses = development_status("candidate:negation-scope")
+    assert set(statuses) == {f"dev-{n:03d}" for n in range(6, 12)}
+    assert set(statuses.values()) == {"match"}
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("We don't sponsor visas, and SQL is required.", {"SQL": "required"}),
+        ("This is not a remote position and Docker is required.", {"Docker": "required"}),
+        ("No relocation is offered, so strong Python skills are required.", {"Python": "required"}),
+        ("Applicants without a degree are welcome, and Java is required.", {"Java": "required"}),
+        ("We never outsource testing, yet Git is mandatory.", {"Git": "required"}),
+        ("Shifts are not fixed while Excel is essential.", {"Excel": "required"}),
+    ],
+)
+def test_unrelated_earlier_negation_does_not_cancel_requirement(
+    text: str, expected: dict[str, str]
+) -> None:
+    assert found(text) == expected
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("No prior Python experience is required.", {"Python": "mentioned"}),
+        ("No Python and SQL experience is required.", {"Python": "mentioned", "SQL": "mentioned"}),
+        (
+            "No Python, SQL, or Docker experience is needed.",
+            {"Python": "mentioned", "SQL": "mentioned", "Docker": "mentioned"},
+        ),
+        ("Python isn't required for this role.", {"Python": "mentioned"}),
+        (
+            "Docker and Kubernetes are not required, and Git is required.",
+            {"Docker": "mentioned", "Kubernetes": "mentioned", "Git": "required"},
+        ),
+        (
+            "Python is not required, and SQL is required.",
+            {"Python": "mentioned", "SQL": "required"},
+        ),
+        (
+            "We use Docker, and no Kubernetes knowledge is needed.",
+            {"Docker": "mentioned", "Kubernetes": "mentioned"},
+        ),
+        ("Python preferred, not required.", {"Python": "preferred"}),
+    ],
+)
+def test_true_negated_requirements_stay_mentioned(text: str, expected: dict[str, str]) -> None:
+    assert found(text) == expected
