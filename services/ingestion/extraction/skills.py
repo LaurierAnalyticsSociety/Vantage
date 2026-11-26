@@ -49,6 +49,10 @@ CLAUSE_BREAK = re.compile(r";|\s(?:but|however|although|though|whereas)\b", re.I
 BULLET = re.compile(r"^(?:[-*•·▪]|\d{1,2}[.)])\s+")
 HEADING = re.compile(r"^([^:]{1,60}):\s*(.*)$")
 HEADING_WORDS = 6
+# Decoration around a heading line without a colon: "## Required skills", "**Nice to have**".
+MARKDOWN_HEADING = re.compile(r"^#{1,6}\s+")
+EMPHASIS = re.compile(r"^(\*\*|__)(.+?)\1$")
+SENTENCE_END = re.compile(r"[.!?]$")
 
 # Context that makes an ambiguous alias read as a technology rather than an ordinary word.
 QUALIFIER_AFTER = re.compile(
@@ -143,7 +147,7 @@ def extract_skills(text: str | None, taxonomy: Taxonomy) -> list[ExtractedSkill]
         return []
     best: dict[UUID, tuple[tuple[int, float, int], ExtractedSkill]] = {}
     position = 0
-    for sentence, inherited in _sentences(text):
+    for sentence, inherited in _sentences(text, taxonomy):
         for clause_start, clause in _clauses(sentence):
             cues = _cues(clause)
             for candidate in _accepted(_candidates(clause, taxonomy), clause, taxonomy):
@@ -186,7 +190,7 @@ def load_taxonomy(connection: "psycopg.Connection[dict[str, object]]") -> Taxono
     )
 
 
-def _sentences(text: str) -> Iterator[tuple[str, RequirementType | None]]:
+def _sentences(text: str, taxonomy: Taxonomy) -> Iterator[tuple[str, RequirementType | None]]:
     """Yield whitespace-collapsed sentences with any requirement inherited from a heading."""
     section: RequirementType | None = None
     for raw_line in text.splitlines():
@@ -204,12 +208,33 @@ def _sentences(text: str) -> Iterator[tuple[str, RequirementType | None]]:
             inherited = section
         elif bullet:
             inherited = section
+        elif (label := _bare_heading(content, taxonomy)) is not None:
+            section = _heading_requirement(label)
+            continue
         else:
             # Any unbulleted line ends a heading's list and never inherits its requirement.
             section = inherited = None
         for sentence in SENTENCE_BREAK.split(content):
             if sentence:
                 yield sentence, inherited
+
+
+def _bare_heading(content: str, taxonomy: Taxonomy) -> str | None:
+    """Return the label of a short cue heading without a colon, or None for ordinary lines.
+
+    "Requirements", "## Required skills", and "**Nice to have**" qualify. A sentence ("Python
+    is required."), a line naming a skill, a long line, or a line without a requirement or
+    preference cue ("Benefits") does not, so ordinary text never becomes a heading.
+    """
+    label = MARKDOWN_HEADING.sub("", content)
+    emphasis = EMPHASIS.match(label)
+    if emphasis:
+        label = emphasis.group(2).strip()
+    if not label or len(label.split()) > HEADING_WORDS or SENTENCE_END.search(label):
+        return None
+    if taxonomy.pattern is not None and taxonomy.pattern.search(label):
+        return None
+    return label if _cues(label) else None
 
 
 def _heading_requirement(label: str) -> RequirementType | None:
