@@ -45,6 +45,28 @@ Repeated mentions of one skill keep the strongest category (required > preferred
 
 Unambiguous aliases such as `Golang` match normally. These rules deliberately miss some genuine mentions (for example "R is required." standing alone) rather than invent requirements.
 
+## Offline evaluation
+
+`benchmark/` holds a versioned synthetic benchmark (`bench-1`): an isolated 21-skill taxonomy with stable keys (`taxonomy.json`), 40 development cases (`development.json`), and 20 held-out cases (`heldout.json`), labeled per [`benchmark/ANNOTATION.md`](benchmark/ANNOTATION.md). The evaluator runs the extractor directly on that taxonomy; it uses no database, network, credentials, or production taxonomy.
+
+```sh
+.venv/bin/python -m services.ingestion.extraction.evaluation --split development
+.venv/bin/python -m services.ingestion.extraction.evaluation --split heldout \
+  --json-out report.json --summary-out report.md --min-exact-f1 0.8
+```
+
+`--split` is `development`, `heldout`, or `all`. The Markdown summary prints to stdout. The exit status is 0 for any completed run, including imperfect scores; 1 when `--min-exact-f1` is given and exact-label F1 is below it or undefined; and 2 for invalid arguments or benchmark input, which is reported with the file, JSON location, and fix (unknown fields, duplicate case IDs within or across splits, duplicate or unknown expected skills, invalid categories, conflicting aliases, version mismatches, malformed JSON).
+
+**Metrics.** Skill identification scores distinct `(case_id, skill)` pairs; exact label scores distinct `(case_id, skill, requirement_type)` tuples, so a correctly identified skill with the wrong category is an identification TP but an exact-label FP and FN. Precision = TP/(TP+FP), recall = TP/(TP+FN), F1 = 2TP/(2TP+FP+FN); any zero denominator yields `null` (N/A), including F1 when TP = FP = FN = 0. Duplicate predictions collapse to distinct items and are counted. Per-skill metrics report support as expected cases containing the skill; per-category exact-label metrics report support as expected tuples in the category. The category confusion matrix covers identification TPs only (a skill predicted with several categories counts as its strongest); missed and spurious skills are counted beside it.
+
+**Reports.** JSON reports are deterministic (sorted keys, six-decimal rounding, LF endings, no timestamps) and record the split, extractor version, corpus version and per-split fingerprints, taxonomy fingerprint, and every case's expected labels, predictions with evidence, and differences. Fingerprints are SHA-256 over canonical JSON, so formatting and line endings do not change them. Committed reports live in `benchmark/reports/<stage>/<split>.{json,md}`; tests verify that they match the frozen corpus and, for the current extractor version, regenerate byte-for-byte.
+
+**Split discipline.** Labels and the 40/20 split were frozen and committed (`benchmark/FREEZE.json`) before any evaluator run. Twenty development cases are probes authored to target candidate failure mechanisms; the other 40 cases form 20 stratified pairs, each split one-to-development and one-to-held-out by a salted hash recorded in the freeze file. Tune against development only; run held-out for the baseline and final reports. Moving a held-out case into development requires replacement held-out cases and a new freeze entry. A test fails if any split's fingerprint departs from the latest freeze entry; label errata must be recorded there and never made to raise scores.
+
+**Reproducing a baseline.** Reports from an earlier extractor version are reproduced from the commit that produced them, for example `git worktree add ../vantage-baseline <commit>` and the command above with `--json-out`, then a byte comparison with the committed report.
+
+**Benchmark limitations.** One author wrote the descriptions, labels, and rules, so held-out cases are not an independent sample and share the author's assumptions about phrasing; the probe pool was written with knowledge of the extractor's documented weaknesses. Sixty short cases give wide uncertainty. Scores are synthetic benchmark results, not real-world accuracy or calibrated confidence.
+
 ## Limitations
 
 - No accuracy has been measured. The four synthetic fixtures and unit-test sentences exercise behavior only; they are not evidence of real-world precision or recall. A labeled evaluation set from permitted descriptions is still required before relying on extraction for analytics.
