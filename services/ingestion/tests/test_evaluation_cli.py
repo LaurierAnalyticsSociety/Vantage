@@ -178,6 +178,11 @@ def committed_reports() -> list[Path]:
     return sorted(REPORTS.glob("*/*.json"))
 
 
+def test_committed_reports_exist_for_both_splits() -> None:
+    names = {(path.parent.name, path.stem) for path in committed_reports()}
+    assert {("baseline", "development"), ("baseline", "heldout")} <= names
+
+
 @pytest.mark.parametrize(
     "path", committed_reports(), ids=lambda path: f"{path.parent.name}/{path.stem}"
 )
