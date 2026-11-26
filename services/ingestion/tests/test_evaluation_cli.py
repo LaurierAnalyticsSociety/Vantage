@@ -180,7 +180,17 @@ def committed_reports() -> list[Path]:
 
 def test_committed_reports_exist_for_both_splits() -> None:
     names = {(path.parent.name, path.stem) for path in committed_reports()}
-    assert {("baseline", "development"), ("baseline", "heldout")} <= names
+    assert {
+        (stage, split) for stage in ("baseline", "final") for split in ("development", "heldout")
+    } <= names
+
+
+def test_final_reports_do_not_regress_from_baseline() -> None:
+    for split in ("development", "heldout"):
+        baseline = json.loads((REPORTS / "baseline" / f"{split}.json").read_text(encoding="utf-8"))
+        final = json.loads((REPORTS / "final" / f"{split}.json").read_text(encoding="utf-8"))
+        for metric in ("identification", "exact_label"):
+            assert final[metric]["f1"] >= baseline[metric]["f1"], (split, metric)
 
 
 @pytest.mark.parametrize(
