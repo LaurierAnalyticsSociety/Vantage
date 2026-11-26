@@ -1,0 +1,1215 @@
+{
+  "cases": [
+    {
+      "description": "Comfortable in Microsoft Excel and Java; JavaScript is a plus.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "excel"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "java"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "javascript"
+        }
+      ],
+      "id": "ho-001",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Comfortable in Microsoft Excel and Java; JavaScript is a plus.",
+          "requirement_type": "mentioned",
+          "skill": "excel"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Comfortable in Microsoft Excel and Java; JavaScript is a plus.",
+          "requirement_type": "mentioned",
+          "skill": "java"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Comfortable in Microsoft Excel and Java; JavaScript is a plus.",
+          "requirement_type": "preferred",
+          "skill": "javascript"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "boundaries"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "We use MySQL, SQLite, and NoSQL stores, and value excellent writing.",
+      "expected": [],
+      "id": "ho-002",
+      "missing": [],
+      "predicted": [],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "boundaries",
+        "skill-free"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Build APIs in Node.js and TypeScript. Python 3 is preferred.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "nodejs"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "typescript"
+        }
+      ],
+      "id": "ho-003",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Build APIs in Node.js and TypeScript.",
+          "requirement_type": "mentioned",
+          "skill": "nodejs"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Python 3 is preferred.",
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Build APIs in Node.js and TypeScript.",
+          "requirement_type": "mentioned",
+          "skill": "typescript"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "multi-sentence",
+        "technical-identifiers"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Our site runs on ASP.NET and Next.js.",
+      "expected": [],
+      "id": "ho-004",
+      "missing": [],
+      "predicted": [],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "skill-free",
+        "technical-identifiers"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Services are written in Go and Java.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "go"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "java"
+        }
+      ],
+      "id": "ho-005",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.6,
+          "evidence_excerpt": "Services are written in Go and Java.",
+          "requirement_type": "mentioned",
+          "skill": "go"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Services are written in Go and Java.",
+          "requirement_type": "mentioned",
+          "skill": "java"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "ambiguous-tokens"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Go beyond dashboards and support our R&D group.",
+      "expected": [],
+      "id": "ho-006",
+      "missing": [],
+      "predicted": [],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "ambiguous-tokens",
+        "skill-free"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "No Java knowledge needed; training is provided.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "java"
+        }
+      ],
+      "id": "ho-007",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "No Java knowledge needed; training is provided.",
+          "requirement_type": "mentioned",
+          "skill": "java"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "negation"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Docker experience is not required, but Kubernetes is preferred.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "docker"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "kubernetes"
+        }
+      ],
+      "id": "ho-008",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Docker experience is not required, but Kubernetes is preferred.",
+          "requirement_type": "mentioned",
+          "skill": "docker"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Docker experience is not required, but Kubernetes is preferred.",
+          "requirement_type": "preferred",
+          "skill": "kubernetes"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "negation"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Requirements:\n- SQL\n- Power BI\nNice to have:\n- Python",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "power-bi"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "id": "ho-009",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Power BI",
+          "requirement_type": "required",
+          "skill": "power-bi"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Python",
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "SQL",
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "headings-bullets",
+        "multi-line"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Required qualifications\n- Strong SQL skills\n- Tableau dashboards",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "sql"
+        },
+        {
+          "requirement_type": "required",
+          "skill": "tableau"
+        }
+      ],
+      "id": "ho-010",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Strong SQL skills",
+          "requirement_type": "required",
+          "skill": "sql"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Tableau dashboards",
+          "requirement_type": "required",
+          "skill": "tableau"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "headings-bullets",
+        "multi-line"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Ideally you know Git; you must have Java.",
+      "expected": [
+        {
+          "requirement_type": "preferred",
+          "skill": "git"
+        },
+        {
+          "requirement_type": "required",
+          "skill": "java"
+        }
+      ],
+      "id": "ho-011",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Ideally you know Git; you must have Java.",
+          "requirement_type": "preferred",
+          "skill": "git"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Ideally you know Git; you must have Java.",
+          "requirement_type": "required",
+          "skill": "java"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "mixed-cues"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Nice to have: Spark. Must have: Python and SQL.",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "python"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "spark"
+        },
+        {
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "id": "ho-012",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Must have: Python and SQL.",
+          "requirement_type": "required",
+          "skill": "python"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Spark.",
+          "requirement_type": "preferred",
+          "skill": "spark"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Must have: Python and SQL.",
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "mixed-cues",
+        "multi-sentence"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "You will work with SQL daily. SQL is a plus at first. Advanced SQL is required by month three.",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "id": "ho-013",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Advanced SQL is required by month three.",
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "multi-sentence",
+        "repeated-mentions"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "JS is required. JavaScript appears in every repo. We also use Node.js.",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "javascript"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "nodejs"
+        }
+      ],
+      "id": "ho-014",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "JS is required.",
+          "requirement_type": "required",
+          "skill": "javascript"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "We also use Node.js.",
+          "requirement_type": "mentioned",
+          "skill": "nodejs"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "multi-sentence",
+        "repeated-mentions",
+        "technical-identifiers"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Tableau, Power BI, & Excel — preferred!",
+      "expected": [
+        {
+          "requirement_type": "preferred",
+          "skill": "excel"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "power-bi"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "tableau"
+        }
+      ],
+      "id": "ho-015",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Tableau, Power BI, & Excel — preferred!",
+          "requirement_type": "preferred",
+          "skill": "excel"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Tableau, Power BI, & Excel — preferred!",
+          "requirement_type": "preferred",
+          "skill": "power-bi"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Tableau, Power BI, & Excel — preferred!",
+          "requirement_type": "preferred",
+          "skill": "tableau"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "punctuation"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Docker? Kubernetes? Neither is required.",
+      "expected": [
+        {
+          "requirement_type": "mentioned",
+          "skill": "docker"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "kubernetes"
+        }
+      ],
+      "id": "ho-016",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Docker?",
+          "requirement_type": "mentioned",
+          "skill": "docker"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Kubernetes?",
+          "requirement_type": "mentioned",
+          "skill": "kubernetes"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "multi-sentence",
+        "negation",
+        "punctuation"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "   \n\n  ",
+      "expected": [],
+      "id": "ho-017",
+      "missing": [],
+      "predicted": [],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "empty-skill-free"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "We are a friendly team in Waterloo. Apply by Friday.",
+      "expected": [],
+      "id": "ho-018",
+      "missing": [],
+      "predicted": [],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "empty-skill-free",
+        "multi-sentence"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Data Analyst (synthetic)\nAbout the role\nYou will build reporting with Power BI.\n\nWhat you need:\n- SQL\n- Microsoft Excel\n\nNice to have:\n- Python\n- R scripts",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "excel"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "power-bi"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "r"
+        },
+        {
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "id": "ho-019",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Microsoft Excel",
+          "requirement_type": "required",
+          "skill": "excel"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "You will build reporting with Power BI.",
+          "requirement_type": "mentioned",
+          "skill": "power-bi"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Python",
+          "requirement_type": "preferred",
+          "skill": "python"
+        },
+        {
+          "confidence": 0.6,
+          "evidence_excerpt": "R scripts",
+          "requirement_type": "preferred",
+          "skill": "r"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "SQL",
+          "requirement_type": "required",
+          "skill": "sql"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "ambiguous-tokens",
+        "headings-bullets",
+        "multi-line",
+        "multi-sentence",
+        "postings"
+      ],
+      "wrong_category": []
+    },
+    {
+      "description": "Junior BI Developer (synthetic)\nResponsibilities:\n- Maintain Tableau dashboards\n- Write SQL queries\nRequirements:\n- Excel\n- Git is an asset",
+      "expected": [
+        {
+          "requirement_type": "required",
+          "skill": "excel"
+        },
+        {
+          "requirement_type": "preferred",
+          "skill": "git"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "sql"
+        },
+        {
+          "requirement_type": "mentioned",
+          "skill": "tableau"
+        }
+      ],
+      "id": "ho-020",
+      "missing": [],
+      "predicted": [
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Excel",
+          "requirement_type": "required",
+          "skill": "excel"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Git is an asset",
+          "requirement_type": "preferred",
+          "skill": "git"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Write SQL queries",
+          "requirement_type": "mentioned",
+          "skill": "sql"
+        },
+        {
+          "confidence": 0.9,
+          "evidence_excerpt": "Maintain Tableau dashboards",
+          "requirement_type": "mentioned",
+          "skill": "tableau"
+        }
+      ],
+      "split": "heldout",
+      "spurious": [],
+      "status": "match",
+      "tags": [
+        "headings-bullets",
+        "multi-line",
+        "postings"
+      ],
+      "wrong_category": []
+    }
+  ],
+  "category_confusion": {
+    "columns": "predicted",
+    "matrix": {
+      "mentioned": {
+        "mentioned": 14,
+        "preferred": 0,
+        "required": 0
+      },
+      "preferred": {
+        "mentioned": 0,
+        "preferred": 12,
+        "required": 0
+      },
+      "required": {
+        "mentioned": 0,
+        "preferred": 0,
+        "required": 12
+      }
+    },
+    "missed_skills": 0,
+    "rows": "expected",
+    "scope": "identification true positives only",
+    "spurious_skills": 0
+  },
+  "caveat": "Synthetic benchmark results on hand-authored descriptions. These are not real-world accuracy or calibrated confidence; the corpus author also wrote the labels.",
+  "corpus": {
+    "splits": {
+      "heldout": {
+        "cases": 20,
+        "fingerprint": "sha256:ea399b13179ea8be2511deeb74e4612814bce3ce8fca07726266552ade4af575"
+      }
+    },
+    "version": "bench-1"
+  },
+  "counts": {
+    "cases": 20,
+    "duplicate_predictions": 0,
+    "expected_labels": 38,
+    "predicted_labels": 38
+  },
+  "denominators": {
+    "exact_label": "distinct (case_id, skill, requirement_type) tuples; a wrong category is one FP and one FN",
+    "identification": "distinct (case_id, skill) pairs; precision = TP/(TP+FP), recall = TP/(TP+FN), F1 = 2TP/(2TP+FP+FN)",
+    "per_category.support": "expected tuples with the category",
+    "per_skill.support": "expected cases containing the skill",
+    "undefined": "null when a denominator is zero, including F1 when TP = FP = FN = 0"
+  },
+  "exact_label": {
+    "f1": 1.0,
+    "fn": 0,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 38
+  },
+  "extractor_version": "skill-rules-v2",
+  "format": "vantage-skill-benchmark-report",
+  "format_version": 1,
+  "identification": {
+    "f1": 1.0,
+    "fn": 0,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 38
+  },
+  "per_category": {
+    "mentioned": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 14,
+      "tp": 14
+    },
+    "preferred": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 12,
+      "tp": 12
+    },
+    "required": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 12,
+      "tp": 12
+    }
+  },
+  "per_skill": {
+    "aws": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "c": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "cpp": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "csharp": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "docker": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "support": 2
+    },
+    "dotnet": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "excel": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "support": 4
+    },
+    "git": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "support": 2
+    },
+    "go": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "support": 1
+    },
+    "java": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "support": 4
+    },
+    "javascript": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "support": 2
+    },
+    "kubernetes": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "support": 2
+    },
+    "nodejs": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 2
+      },
+      "support": 2
+    },
+    "postgresql": {
+      "exact_label": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "identification": {
+        "f1": null,
+        "fn": 0,
+        "fp": 0,
+        "precision": null,
+        "recall": null,
+        "tp": 0
+      },
+      "support": 0
+    },
+    "power-bi": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 3
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 3
+      },
+      "support": 3
+    },
+    "python": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 4
+      },
+      "support": 4
+    },
+    "r": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "support": 1
+    },
+    "spark": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "support": 1
+    },
+    "sql": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 6
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 6
+      },
+      "support": 6
+    },
+    "tableau": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 3
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 3
+      },
+      "support": 3
+    },
+    "typescript": {
+      "exact_label": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "identification": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 1
+      },
+      "support": 1
+    }
+  },
+  "split": "heldout",
+  "synthetic": true,
+  "taxonomy": {
+    "fingerprint": "sha256:e69c0d1373576724a7b21851958acc1a9a97f5c66f8a35b52f94226fa496ef16",
+    "version": "bench-tax-1"
+  }
+}

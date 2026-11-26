@@ -5,15 +5,17 @@ Confidence is a design weight for identification certainty, not measured accurac
 """
 
 import re
+from bisect import bisect_right
 from collections.abc import Callable, Iterable, Iterator
 from dataclasses import dataclass
+from itertools import pairwise
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
 if TYPE_CHECKING:
     import psycopg
 
-EXTRACTION_VERSION = "skill-rules-v1"
+EXTRACTION_VERSION = "skill-rules-v2"
 EXCERPT_LIMIT = 240
 
 RequirementType = Literal["required", "preferred", "mentioned"]
@@ -45,10 +47,15 @@ NEGATION = re.compile(
     r"\b(?:not|no|never|without|isn't|aren't|don't|doesn't|won't|cannot)\b", re.IGNORECASE
 )
 SENTENCE_BREAK = re.compile(r"(?<=[.!?])\s+")
+SEGMENT_BREAK = re.compile(r",|\s(?:and|so|yet|while)(?=\s)", re.IGNORECASE)
 CLAUSE_BREAK = re.compile(r";|\s(?:but|however|although|though|whereas)\b", re.IGNORECASE)
 BULLET = re.compile(r"^(?:[-*•·▪]|\d{1,2}[.)])\s+")
 HEADING = re.compile(r"^([^:]{1,60}):\s*(.*)$")
 HEADING_WORDS = 6
+# Decoration around a heading line without a colon: "## Required skills", "**Nice to have**".
+MARKDOWN_HEADING = re.compile(r"^#{1,6}\s+")
+EMPHASIS = re.compile(r"^(\*\*|__)(.+?)\1$")
+SENTENCE_END = re.compile(r"[.!?]$")
 
 # Context that makes an ambiguous alias read as a technology rather than an ordinary word.
 QUALIFIER_AFTER = re.compile(
@@ -143,11 +150,13 @@ def extract_skills(text: str | None, taxonomy: Taxonomy) -> list[ExtractedSkill]
         return []
     best: dict[UUID, tuple[tuple[int, float, int], ExtractedSkill]] = {}
     position = 0
-    for sentence, inherited in _sentences(text):
+    for sentence, inherited in _sentences(text, taxonomy):
         for clause_start, clause in _clauses(sentence):
-            cues = _cues(clause)
-            for candidate in _accepted(_candidates(clause, taxonomy), clause, taxonomy):
-                requirement = _classify(candidate, cues, inherited)
+            mentions = _accepted(_candidates(clause, taxonomy), clause, taxonomy)
+            breaks = _segment_breaks(clause, mentions)
+            cues = _cues(clause, breaks)
+            for candidate in mentions:
+                requirement = _classify(candidate, cues, inherited, breaks, mentions)
                 ambiguous = taxonomy.is_ambiguous(candidate.key)
                 confidence = AMBIGUOUS_CONFIDENCE if ambiguous else MATCH_CONFIDENCE
                 skill = ExtractedSkill(
@@ -186,7 +195,7 @@ def load_taxonomy(connection: "psycopg.Connection[dict[str, object]]") -> Taxono
     )
 
 
-def _sentences(text: str) -> Iterator[tuple[str, RequirementType | None]]:
+def _sentences(text: str, taxonomy: Taxonomy) -> Iterator[tuple[str, RequirementType | None]]:
     """Yield whitespace-collapsed sentences with any requirement inherited from a heading."""
     section: RequirementType | None = None
     for raw_line in text.splitlines():
@@ -204,12 +213,33 @@ def _sentences(text: str) -> Iterator[tuple[str, RequirementType | None]]:
             inherited = section
         elif bullet:
             inherited = section
+        elif (label := _bare_heading(content, taxonomy)) is not None:
+            section = _heading_requirement(label)
+            continue
         else:
             # Any unbulleted line ends a heading's list and never inherits its requirement.
             section = inherited = None
         for sentence in SENTENCE_BREAK.split(content):
             if sentence:
                 yield sentence, inherited
+
+
+def _bare_heading(content: str, taxonomy: Taxonomy) -> str | None:
+    """Return the label of a short cue heading without a colon, or None for ordinary lines.
+
+    "Requirements", "## Required skills", and "**Nice to have**" qualify. A sentence ("Python
+    is required."), a line naming a skill, a long line, or a line without a requirement or
+    preference cue ("Benefits") does not, so ordinary text never becomes a heading.
+    """
+    label = MARKDOWN_HEADING.sub("", content)
+    emphasis = EMPHASIS.match(label)
+    if emphasis:
+        label = emphasis.group(2).strip()
+    if not label or len(label.split()) > HEADING_WORDS or SENTENCE_END.search(label):
+        return None
+    if taxonomy.pattern is not None and taxonomy.pattern.search(label):
+        return None
+    return label if _cues(label) else None
 
 
 def _heading_requirement(label: str) -> RequirementType | None:
@@ -228,14 +258,35 @@ def _clauses(sentence: str) -> Iterator[tuple[int, str]]:
     yield start, sentence[start:]
 
 
-def _cues(clause: str) -> list[_Cue]:
+def _segment_breaks(clause: str, mentions: list[_Candidate]) -> list[int]:
+    """End offsets of segment breaks within a clause, in order.
+
+    Commas and the conjunctions and/so/yet/while separate segments ("We don't sponsor visas,
+    and SQL is required"), except where they join a coordinated skill list ("No Python and
+    SQL experience is required", "Python, R, or SQL"). ``mentions`` must be sorted by start.
+    """
+    lists = [
+        (left.end, right.start)
+        for left, right in pairwise(mentions)
+        if LIST_SEPARATOR.match(clause[left.end : right.start])
+    ]
+    return [
+        match.end()
+        for match in SEGMENT_BREAK.finditer(clause)
+        if not any(start <= match.start() and match.end() <= end for start, end in lists)
+    ]
+
+
+def _cues(clause: str, breaks: list[int] | None = None) -> list[_Cue]:
     cues = [
         _Cue(match.start(), match.end(), "preferred") for match in PREFERRED_CUE.finditer(clause)
     ]
     previous_end = 0
     for match in REQUIRED_CUE.finditer(clause):
-        # A negation between the previous cue and this one cancels the requirement.
-        negated = NEGATION.search(clause, previous_end, match.start()) is not None
+        # A negation cancels a requirement only within the cue's own segment and after any
+        # previous required cue; a negation in an earlier, unrelated segment does not.
+        start = max([previous_end, *(end for end in breaks or () if end <= match.start())])
+        negated = NEGATION.search(clause, start, match.start()) is not None
         cues.append(_Cue(match.start(), match.end(), "required", negated))
         previous_end = match.end()
     return sorted(cues, key=lambda cue: cue.start)
@@ -304,16 +355,30 @@ def _listed_with(item: _Candidate, accepted: list[_Candidate], clause: str) -> b
 
 
 def _classify(
-    candidate: _Candidate, cues: list[_Cue], inherited: RequirementType | None
+    candidate: _Candidate,
+    cues: list[_Cue],
+    inherited: RequirementType | None,
+    breaks: list[int] | None = None,
+    mentions: list[_Candidate] | None = None,
 ) -> RequirementType:
-    if cues:
-        # The nearest cue in the clause applies; ties resolve to the weaker category.
+    def segment(offset: int) -> int:
+        return bisect_right(breaks or [], offset)
+
+    # A skill takes a cue from its own segment. Failing that, only a cue from a segment that
+    # names no skill of its own can apply ("Must have experience with dashboards, SQL, and
+    # Excel"); a cue already governing another skill group never leaks into this one.
+    eligible = [cue for cue in cues if segment(cue.start) == segment(candidate.start)]
+    if not eligible:
+        occupied = {segment(item.start) for item in mentions or [candidate]}
+        eligible = [cue for cue in cues if segment(cue.start) not in occupied]
+    if eligible:
+        # The nearest eligible cue applies; ties resolve to the weaker category.
         def distance(cue: _Cue) -> tuple[int, int]:
             gap = max(cue.start - candidate.end, candidate.start - cue.end, 0)
             weight = 0 if cue.negated else STRENGTH[cue.requirement]
             return gap, weight
 
-        cue = min(cues, key=distance)
+        cue = min(eligible, key=distance)
         return "mentioned" if cue.negated else cue.requirement
     return inherited or "mentioned"
 

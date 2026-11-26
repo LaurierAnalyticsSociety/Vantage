@@ -1,0 +1,572 @@
+{
+  "format": "vantage-skill-benchmark-freeze",
+  "format_version": 1,
+  "entries": [
+    {
+      "corpus_version": "bench-1",
+      "frozen": "2026-11-26",
+      "reason": "Initial freeze before any evaluator run or rule tuning.",
+      "procedure": "Probe-pool cases (authored to target candidate failure mechanisms) are always development. Coverage-pool cases come in 20 pairs (10 strata x 2); within each pair the draft with the lower sha256('bench-1:' + draft) goes to development and the other to held-out. Case IDs are numbered in pool, stratum, and pair order.",
+      "taxonomy": {
+        "version": "bench-tax-1",
+        "fingerprint": "sha256:e69c0d1373576724a7b21851958acc1a9a97f5c66f8a35b52f94226fa496ef16"
+      },
+      "splits": {
+        "development": {
+          "fingerprint": "sha256:05126eadceebea107b23a8ec068c3c394cdbfffa1ab5e5d260dc47e1fbc0da6a",
+          "case_ids": [
+            "dev-001",
+            "dev-002",
+            "dev-003",
+            "dev-004",
+            "dev-005",
+            "dev-006",
+            "dev-007",
+            "dev-008",
+            "dev-009",
+            "dev-010",
+            "dev-011",
+            "dev-012",
+            "dev-013",
+            "dev-014",
+            "dev-015",
+            "dev-016",
+            "dev-017",
+            "dev-018",
+            "dev-019",
+            "dev-020",
+            "dev-021",
+            "dev-022",
+            "dev-023",
+            "dev-024",
+            "dev-025",
+            "dev-026",
+            "dev-027",
+            "dev-028",
+            "dev-029",
+            "dev-030",
+            "dev-031",
+            "dev-032",
+            "dev-033",
+            "dev-034",
+            "dev-035",
+            "dev-036",
+            "dev-037",
+            "dev-038",
+            "dev-039",
+            "dev-040"
+          ]
+        },
+        "heldout": {
+          "fingerprint": "sha256:ea399b13179ea8be2511deeb74e4612814bce3ce8fca07726266552ade4af575",
+          "case_ids": [
+            "ho-001",
+            "ho-002",
+            "ho-003",
+            "ho-004",
+            "ho-005",
+            "ho-006",
+            "ho-007",
+            "ho-008",
+            "ho-009",
+            "ho-010",
+            "ho-011",
+            "ho-012",
+            "ho-013",
+            "ho-014",
+            "ho-015",
+            "ho-016",
+            "ho-017",
+            "ho-018",
+            "ho-019",
+            "ho-020"
+          ]
+        }
+      },
+      "multi_line_or_sentence_cases": 23,
+      "assignment": [
+        {
+          "draft": "probe-heading-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-001"
+        },
+        {
+          "draft": "probe-heading-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-002"
+        },
+        {
+          "draft": "probe-heading-3",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-003"
+        },
+        {
+          "draft": "probe-heading-counter-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-004"
+        },
+        {
+          "draft": "probe-heading-counter-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-005"
+        },
+        {
+          "draft": "probe-negation-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-006"
+        },
+        {
+          "draft": "probe-negation-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-007"
+        },
+        {
+          "draft": "probe-negation-3",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-008"
+        },
+        {
+          "draft": "probe-negation-4",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-009"
+        },
+        {
+          "draft": "probe-negation-counter-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-010"
+        },
+        {
+          "draft": "probe-negation-counter-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-011"
+        },
+        {
+          "draft": "probe-coordination-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-012"
+        },
+        {
+          "draft": "probe-coordination-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-013"
+        },
+        {
+          "draft": "probe-coordination-3",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-014"
+        },
+        {
+          "draft": "probe-coordination-4",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-015"
+        },
+        {
+          "draft": "probe-coordination-counter-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-016"
+        },
+        {
+          "draft": "probe-coordination-counter-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-017"
+        },
+        {
+          "draft": "probe-ambiguous-label-1",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-018"
+        },
+        {
+          "draft": "probe-ambiguous-label-2",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-019"
+        },
+        {
+          "draft": "probe-ambiguous-label-3",
+          "pool": "probe",
+          "split": "development",
+          "case_id": "dev-020"
+        },
+        {
+          "draft": "boundaries-a1",
+          "pool": "coverage",
+          "stratum": "boundaries",
+          "pair": "a",
+          "sha256": "2aebb55b04e22ab3c83b01edff66fb78ee86843eaf120a056e26229c42eeb9db",
+          "split": "development",
+          "case_id": "dev-021"
+        },
+        {
+          "draft": "boundaries-a2",
+          "pool": "coverage",
+          "stratum": "boundaries",
+          "pair": "a",
+          "sha256": "512ac9a4487b3fa5145bd474edeb887c9a8a3b38c35d5144233b61f91900aaf1",
+          "split": "heldout",
+          "case_id": "ho-001"
+        },
+        {
+          "draft": "boundaries-b2",
+          "pool": "coverage",
+          "stratum": "boundaries",
+          "pair": "b",
+          "sha256": "24172059a5ab5b0c7a7375bea89f3d4f5a6b9b273a6775b6e3a7357cb916035e",
+          "split": "development",
+          "case_id": "dev-022"
+        },
+        {
+          "draft": "boundaries-b1",
+          "pool": "coverage",
+          "stratum": "boundaries",
+          "pair": "b",
+          "sha256": "40140e73595b26198272584c8660aeaabd2058cb4defd0c8ac6116700c63f37a",
+          "split": "heldout",
+          "case_id": "ho-002"
+        },
+        {
+          "draft": "technical-a1",
+          "pool": "coverage",
+          "stratum": "technical-identifiers",
+          "pair": "a",
+          "sha256": "5d317934d8b9ee437af873cc37138a8b7b4a9c189d2e9032a260e3e9c174dca0",
+          "split": "development",
+          "case_id": "dev-023"
+        },
+        {
+          "draft": "technical-a2",
+          "pool": "coverage",
+          "stratum": "technical-identifiers",
+          "pair": "a",
+          "sha256": "9f4dac3443cb9f50421fe64fc6ba1e21c655c6f0beec7388bad1d317d19b1c32",
+          "split": "heldout",
+          "case_id": "ho-003"
+        },
+        {
+          "draft": "technical-b2",
+          "pool": "coverage",
+          "stratum": "technical-identifiers",
+          "pair": "b",
+          "sha256": "715597de82433cf9933d21e3317ddbc29220df37146d65f73758b3353bab8118",
+          "split": "development",
+          "case_id": "dev-024"
+        },
+        {
+          "draft": "technical-b1",
+          "pool": "coverage",
+          "stratum": "technical-identifiers",
+          "pair": "b",
+          "sha256": "a5679b004b4d6c3b3d1321d765dafa9632fcdcfe9ceb9453cfd69f57130bd613",
+          "split": "heldout",
+          "case_id": "ho-004"
+        },
+        {
+          "draft": "ambiguous-a1",
+          "pool": "coverage",
+          "stratum": "ambiguous-tokens",
+          "pair": "a",
+          "sha256": "3798c2fbf49ef5180af5eaedd6f2432f3883b22ce3914b8f4daf203b6631605a",
+          "split": "development",
+          "case_id": "dev-025"
+        },
+        {
+          "draft": "ambiguous-a2",
+          "pool": "coverage",
+          "stratum": "ambiguous-tokens",
+          "pair": "a",
+          "sha256": "bb32fe133f1a2734cd65f8f64fe08f7d2be656ba1f4e7e97f03f5e6a49196bea",
+          "split": "heldout",
+          "case_id": "ho-005"
+        },
+        {
+          "draft": "ambiguous-b2",
+          "pool": "coverage",
+          "stratum": "ambiguous-tokens",
+          "pair": "b",
+          "sha256": "380312a811189a672d2cd739b1cd77e006c884c600136da1771e4484c5be8db8",
+          "split": "development",
+          "case_id": "dev-026"
+        },
+        {
+          "draft": "ambiguous-b1",
+          "pool": "coverage",
+          "stratum": "ambiguous-tokens",
+          "pair": "b",
+          "sha256": "542c14c88e783eed1b7b72b23b04edfdd3bf2c8d013c4af907ade2f02d62b9f6",
+          "split": "heldout",
+          "case_id": "ho-006"
+        },
+        {
+          "draft": "negation-a2",
+          "pool": "coverage",
+          "stratum": "negation",
+          "pair": "a",
+          "sha256": "12c27794bba46bcd108f6d914077a414c4e0d723494d01670d93af689208e1f2",
+          "split": "development",
+          "case_id": "dev-027"
+        },
+        {
+          "draft": "negation-a1",
+          "pool": "coverage",
+          "stratum": "negation",
+          "pair": "a",
+          "sha256": "de3881d22855924a11998c19ac36e5786566aba1db5e762e5e66e987350ba634",
+          "split": "heldout",
+          "case_id": "ho-007"
+        },
+        {
+          "draft": "negation-b1",
+          "pool": "coverage",
+          "stratum": "negation",
+          "pair": "b",
+          "sha256": "0fa072c1243201ff5cd7eba9c5579f427e1af0c074eb6a7563272c1f120865ff",
+          "split": "development",
+          "case_id": "dev-028"
+        },
+        {
+          "draft": "negation-b2",
+          "pool": "coverage",
+          "stratum": "negation",
+          "pair": "b",
+          "sha256": "f315fdc29e07dd0b9999fd89de49a48f5848321ca519f1bbfba692df22a95a54",
+          "split": "heldout",
+          "case_id": "ho-008"
+        },
+        {
+          "draft": "headings-a2",
+          "pool": "coverage",
+          "stratum": "headings-bullets",
+          "pair": "a",
+          "sha256": "2775bbf35dd7b86783c38cd11e791d5d60f555cbe26f1b93cb20790cd6730eae",
+          "split": "development",
+          "case_id": "dev-029"
+        },
+        {
+          "draft": "headings-a1",
+          "pool": "coverage",
+          "stratum": "headings-bullets",
+          "pair": "a",
+          "sha256": "c4ba9dfa8aa5de505d05a247acd3e72b7a3b105788434a68c00aa612db4ec7b5",
+          "split": "heldout",
+          "case_id": "ho-009"
+        },
+        {
+          "draft": "headings-b2",
+          "pool": "coverage",
+          "stratum": "headings-bullets",
+          "pair": "b",
+          "sha256": "17e2a5371731842506ac963827f4c426671a80c15e716dd38903090ee357ea48",
+          "split": "development",
+          "case_id": "dev-030"
+        },
+        {
+          "draft": "headings-b1",
+          "pool": "coverage",
+          "stratum": "headings-bullets",
+          "pair": "b",
+          "sha256": "991c8643f93c474ccc1740c74ca081612efb50243e755dd2823d044b4bcaf969",
+          "split": "heldout",
+          "case_id": "ho-010"
+        },
+        {
+          "draft": "mixed-a1",
+          "pool": "coverage",
+          "stratum": "mixed-cues",
+          "pair": "a",
+          "sha256": "3a35971fb32373fd7d26d2438da0bd2580843a3d82c2f8ee3120c44db414428f",
+          "split": "development",
+          "case_id": "dev-031"
+        },
+        {
+          "draft": "mixed-a2",
+          "pool": "coverage",
+          "stratum": "mixed-cues",
+          "pair": "a",
+          "sha256": "eac485fa50524c979200a20f39d684acf3e8ca1a5ed0d5e9ea17d8fc20dc1f5b",
+          "split": "heldout",
+          "case_id": "ho-011"
+        },
+        {
+          "draft": "mixed-b2",
+          "pool": "coverage",
+          "stratum": "mixed-cues",
+          "pair": "b",
+          "sha256": "32703408f43f1ccb5ccf6dd9cf768988ba55f0316296259b720eacc0388425e8",
+          "split": "development",
+          "case_id": "dev-032"
+        },
+        {
+          "draft": "mixed-b1",
+          "pool": "coverage",
+          "stratum": "mixed-cues",
+          "pair": "b",
+          "sha256": "5c91c6bd95ecc4a7db272ee16c5fb355ee15c19e5219072d57513ca6a64a5b73",
+          "split": "heldout",
+          "case_id": "ho-012"
+        },
+        {
+          "draft": "repeated-a2",
+          "pool": "coverage",
+          "stratum": "repeated-mentions",
+          "pair": "a",
+          "sha256": "43cf7733b972b693a938f5168bcd5e0c87b3d3a27e939c541019567b201eb0ba",
+          "split": "development",
+          "case_id": "dev-033"
+        },
+        {
+          "draft": "repeated-a1",
+          "pool": "coverage",
+          "stratum": "repeated-mentions",
+          "pair": "a",
+          "sha256": "e136d141447b5a15d88729a421c8bfa319a8c7dff4b6478e0ad77e4f94e4002d",
+          "split": "heldout",
+          "case_id": "ho-013"
+        },
+        {
+          "draft": "repeated-b1",
+          "pool": "coverage",
+          "stratum": "repeated-mentions",
+          "pair": "b",
+          "sha256": "b27db743ab89265749af31596947fbd96c9a3202bfed4b1aec2f37659544a1ea",
+          "split": "development",
+          "case_id": "dev-034"
+        },
+        {
+          "draft": "repeated-b2",
+          "pool": "coverage",
+          "stratum": "repeated-mentions",
+          "pair": "b",
+          "sha256": "d9c9fe5d6ce6aa0d59130a9c1237ef647769dda47fbfaf4f9058f3999e39f0d1",
+          "split": "heldout",
+          "case_id": "ho-014"
+        },
+        {
+          "draft": "punctuation-a1",
+          "pool": "coverage",
+          "stratum": "punctuation",
+          "pair": "a",
+          "sha256": "03185d67a31886beabe69569fcff7cffa9e3e4b1d24cec6cdf4e681ee53f7812",
+          "split": "development",
+          "case_id": "dev-035"
+        },
+        {
+          "draft": "punctuation-a2",
+          "pool": "coverage",
+          "stratum": "punctuation",
+          "pair": "a",
+          "sha256": "f2a468bf6ab3c1afe0cd5c885af6c2f8b9c681505363822c873e2e90a055ed60",
+          "split": "heldout",
+          "case_id": "ho-015"
+        },
+        {
+          "draft": "punctuation-b2",
+          "pool": "coverage",
+          "stratum": "punctuation",
+          "pair": "b",
+          "sha256": "2a91f8d6ef9c6bd8898bd992be5732820cf2fa333badf4b6e6315899a15b4ba7",
+          "split": "development",
+          "case_id": "dev-036"
+        },
+        {
+          "draft": "punctuation-b1",
+          "pool": "coverage",
+          "stratum": "punctuation",
+          "pair": "b",
+          "sha256": "a1341ebe1841d3fe72e6d01bf012287f67e682c77db0d0da82ef8cea6f07a944",
+          "split": "heldout",
+          "case_id": "ho-016"
+        },
+        {
+          "draft": "empty-a1",
+          "pool": "coverage",
+          "stratum": "empty-skill-free",
+          "pair": "a",
+          "sha256": "5e581f104bceed94b84e1bb904e2e1afb5685c4ad39de549ed1c37843651a690",
+          "split": "development",
+          "case_id": "dev-037"
+        },
+        {
+          "draft": "empty-a2",
+          "pool": "coverage",
+          "stratum": "empty-skill-free",
+          "pair": "a",
+          "sha256": "979f05afeb5843e42525ea0c301ad24d81dba78fb2e2c82f2ea4abd2a3097211",
+          "split": "heldout",
+          "case_id": "ho-017"
+        },
+        {
+          "draft": "empty-b2",
+          "pool": "coverage",
+          "stratum": "empty-skill-free",
+          "pair": "b",
+          "sha256": "48027e2bd03c1f2ab2e66040cb179a6a6692781b3508c911fcc868001b69b8da",
+          "split": "development",
+          "case_id": "dev-038"
+        },
+        {
+          "draft": "empty-b1",
+          "pool": "coverage",
+          "stratum": "empty-skill-free",
+          "pair": "b",
+          "sha256": "fccfd80fa39e6ce4616d641834152fbe5a754c8f0b3adc36a7146e829f6fbfa3",
+          "split": "heldout",
+          "case_id": "ho-018"
+        },
+        {
+          "draft": "postings-a2",
+          "pool": "coverage",
+          "stratum": "postings",
+          "pair": "a",
+          "sha256": "c23b3809687a2d23b3d9df5b653a3f52dfc78fe3810f5ebf3e8821250d985381",
+          "split": "development",
+          "case_id": "dev-039"
+        },
+        {
+          "draft": "postings-a1",
+          "pool": "coverage",
+          "stratum": "postings",
+          "pair": "a",
+          "sha256": "c3b03fd6473ff3b3c906b4d8e0dfb7c2a42fc1bd1b4ef54af1c8d2c9e3c79cb3",
+          "split": "heldout",
+          "case_id": "ho-019"
+        },
+        {
+          "draft": "postings-b2",
+          "pool": "coverage",
+          "stratum": "postings",
+          "pair": "b",
+          "sha256": "450752de512db9cbbf39c77b39e09a335faa0064e6ad59a6c803bab8c881170e",
+          "split": "development",
+          "case_id": "dev-040"
+        },
+        {
+          "draft": "postings-b1",
+          "pool": "coverage",
+          "stratum": "postings",
+          "pair": "b",
+          "sha256": "5a7a8006754b71d96db8c03cbf089104e5230165a265fb6b27185be6d3c269ee",
+          "split": "heldout",
+          "case_id": "ho-020"
+        }
+      ],
+      "errata": []
+    }
+  ]
+}
